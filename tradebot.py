@@ -117,5 +117,5 @@ def trading_job():
 #execute orders automatically with scheduler
 trading_job()
 #scheduler = BlockingScheduler()
-#scheduler.add_job(trading_job, 'cron', day_of_week='mon-fri', hour='00-23', minute=)
+#scheduler.add_job(trading_job, 'cron', day_of_week='mon-fri', hour='00-23', minute='1,16,31,46', start_date='2022-01-12 12:00:00', timezone='Harare/Pretoria')
 #scheduler.start()
