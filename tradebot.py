@@ -14,6 +14,14 @@ def signal_generator(df):
     previous_open = df.Open.iloc[-2]
     previous_close = df.Close.iloc[-2]
 
-    #Bearish Pattern
-    if (open>close and previous_open<previous_close and close<previous_open and open>=previous_close):
-        return 1
+    #Bearish Pattern 
+    if (open>close and previous_open<previous_close and close<previous_open and open>=previous_close): 
+        return 1 
+
+    # Bullish Pattern
+    if (open<close and previous_open>previous_close and close>previous_open and open<=previous_close):
+        return 2 
+
+    #no clear pattern
+    else:
+        return 0
