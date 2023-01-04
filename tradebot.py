@@ -85,6 +85,8 @@ def trading_job():
 
     SLTPRation = 2.
     previous_candleR = abs(dfstream['Open'].iloc[-2] - dfstream['Close'].iloc[-2])
+    #if stoploss is not wide use HIGH - Low
+    #previous_candleR = abs(dfstream['High'].iloc[-2] - dfstream['Low'].iloc[-2]) #CHECK LINE 103 ALSO
 
     SLBuy = float(str(candle.bid.o)) - previous_candleR
     SLSell = float(str(candle.bid.o)) + previous_candleR
@@ -94,6 +96,10 @@ def trading_job():
 
     print(dfstream.iloc[:-1, :])
     print(TPBuy, " ", SLBuy, " ", TPSell, " ", SLSell)
+
+    #EXECUTE 
+    signal = 1
+    #signal= 2
 
     #Sell
     if signal == 1:
@@ -108,4 +114,8 @@ def trading_job():
         rv = client.request(r)
         print(rv)
 
-        
+#execute orders automatically with scheduler
+trading_job()
+#scheduler = BlockingScheduler()
+#scheduler.add_job(trading_job, 'cron', day_of_week='mon-fri', hour='00-23', minute=)
+#scheduler.start()
