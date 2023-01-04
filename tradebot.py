@@ -7,6 +7,7 @@ dataF.iloc[-1:,:]
 dataF.Open.iloc
 
 #Define your signal function
+# For ingufing patterns
 def signal_generator(df):
     open = df.Open.iloc[-1]
     close = df.Close.iloc[-1]
@@ -25,3 +26,11 @@ def signal_generator(df):
     #no clear pattern
     else:
         return 0
+
+    signal = []
+    signal.append(0)
+    for i in range(1,len(dataF)):
+        df = dataF[i-1:i+1]
+        signal.append(signal_generator(df))
+    #signal_generator(data)
+    dataF["signal"] = signal
