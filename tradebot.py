@@ -49,7 +49,7 @@ from oandapyV20.contrib.requests import TakeProfitDetails, StopLossDetails
 from config import access_token, aacountID
 def get_candles(n):
     #access_token='XXXX' #you need token here generated from OANDA account 
-    client = CandleClient(access_token,real=false)
+    client = CandleClient(access_token,real=false) # for fake account
     collector = client.get_collector(Pair.EUR_USD, Gran.M15)
     candles = collector.grab(n)
     return candles
