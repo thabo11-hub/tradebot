@@ -78,4 +78,24 @@ def trading_job():
 
     signal = signal_generator(dfstream.iloc[:-1,:])
 
-    #
+    #Execute Orders
+    #accountID = "xXXXx" #your account id here
+
+    client = API(access_token)
+
+    SLTPRation = 2.
+    previous_candleR = abs(dfstream['Open'].iloc[-2] - dfstream['Close'].iloc[-2])
+
+    SLBuy = float(str(candle.bid.o)) - previous_candleR
+    SLSell = float(str(candle.bid.o)) + previous_candleR
+
+    TPBuy = float(str(candle.bid.o)) + previous_candleR*SLTPRatio
+    TPSell = float(str(candle.bid.o)) - previous_candleR*SLTPRatio
+
+    print(dfstream.iloc[:-1, :])
+    print(TPBuy, " ", SLBuy, " ", TPSell, " ", SLSell)
+
+    #Sell
+    if signal == 1:
+        mo = MarketOrderRequest(instrument="Eur_USD", units=-1000, takeProfitOnFill)
+        r = orders.OrderCreate(aacountID, data=mo.data)
