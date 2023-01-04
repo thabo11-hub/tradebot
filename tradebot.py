@@ -97,5 +97,15 @@ def trading_job():
 
     #Sell
     if signal == 1:
-        mo = MarketOrderRequest(instrument="Eur_USD", units=-1000, takeProfitOnFill)
+        mo = MarketOrderRequest(instrument="EUR_USD", units=-1000, takeProfitOnFill=TakeProfitDetails(priceTPSell).data, stopLossOnFill=StopLossDetails(price=SLSell).data)
         r = orders.OrderCreate(aacountID, data=mo.data)
+        rv = client.request(r)
+        print(rv)
+    #Buy
+    elif signal == 2:
+        mo = MarketOrderRequest(instrument="EUR_USD", units=1000, takeProfitOnFill=TakeProfitDetails(priceTPBuy).data, stopLossOnFill=StopLossDetails(price=SLBuy).data)
+        r = orders.OrderCreate(aacountID, data=mo.data)
+        rv = client.request(r)
+        print(rv)
+
+        
