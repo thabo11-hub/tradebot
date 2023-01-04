@@ -34,3 +34,22 @@ def signal_generator(df):
         signal.append(signal_generator(df))
     #signal_generator(data)
     dataF["signal"] = signal
+
+dataF.signal.value_counts()
+#dataF.iloc[:, :]
+
+#connect to the market and execute trades
+from apscheduler.schedulers.blocking import BlockingScheduler
+from oandapyV20 import API
+import oandapyV20.endpoints.orders as orders
+from oandapyV20.contrib.requests import MarketOrderRequest
+from oanda_candles import Pair,Gran, CandleCollector, CandleClient
+from oandapyV20.contrib.requests import TakeProfitDetails, StopLossDetails
+
+from config import access_token, aacountID
+def get_candles(n):
+    #access_token='XXXX' #you need token here generated from OANDA account 
+    client = CandleClient(access_token,real=false)
+    collector = client.get_collector(Pair.EUR_USD, Gran.M15)
+    candles = collector.grab(n)
+    return candles
